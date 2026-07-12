@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#120d22" />
+  <title>Shinobu Kocho — Le Sourire Empoisonné</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#070812; --night:#0e1022; --violet:#9b6cff; --mauve:#c59bff;
+      --pink:#ffc6e8; --cyan:#aaf7ff; --white:#f8f4ff; --glass:rgba(18,14,38,.52);
+      --mx:50vw; --my:50vh; --section-tone:#a978ff;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;background:var(--ink)}
+    body{margin:0;color:var(--white);font-family:Montserrat,Arial,sans-serif;background:var(--ink);overflow-x:hidden;cursor:none}
+    button,a{font:inherit;color:inherit;cursor:none}
+    ::selection{background:#b584ff;color:#090711}
+
+    /* INTRO */
+    #intro{position:fixed;inset:0;z-index:9999;background:#020207;display:grid;place-items:center;overflow:hidden;transition:opacity .8s,visibility .8s}
+    #intro.hidden{opacity:0;visibility:hidden;pointer-events:none}
+    .intro-vignette{position:absolute;inset:-15%;background:radial-gradient(circle at center,rgba(104,56,175,.18),transparent 48%);animation:breathe 3s ease-in-out infinite}
+    .drop{position:absolute;top:-40px;left:50%;width:8px;height:26px;border-radius:50% 50% 60% 60%;background:linear-gradient(#e6d7ff,#7e39ff);filter:drop-shadow(0 0 12px #a66cff);animation:drop 1.45s .55s cubic-bezier(.52,.05,.8,.45) forwards}
+    .liquid-wave{position:absolute;left:50%;top:50%;width:8px;height:8px;border:1px solid rgba(186,130,255,.9);border-radius:50%;transform:translate(-50%,-50%) scale(0);box-shadow:0 0 28px #8e4fff;animation:wave 2.2s 1.55s ease-out forwards}
+    .veins{position:absolute;inset:0;opacity:0;background:
+      radial-gradient(circle at 50% 50%,transparent 0 8%,rgba(144,72,255,.22) 8.3% 8.7%,transparent 9%),
+      repeating-conic-gradient(from 12deg at 50% 50%,transparent 0 11deg,rgba(122,62,255,.17) 12deg,transparent 14deg 36deg);
+      mask:radial-gradient(circle at center,#000,transparent 64%);animation:veinsIn 2s 1.65s forwards}
+    .intro-title,.intro-second{position:absolute;left:50%;width:min(88vw,900px);transform:translateX(-50%);text-align:center;font-family:"Cormorant Garamond",serif;font-size:clamp(1.3rem,3vw,2.5rem);letter-spacing:.07em;opacity:0;text-shadow:0 0 24px rgba(193,144,255,.45)}
+    .intro-title{top:42%;animation:quote1 2.1s 2s forwards}
+    .intro-second{top:63%;animation:quote2 2.1s 4.35s forwards}
+    .slash{position:absolute;top:50%;left:-20%;width:140%;height:2px;background:linear-gradient(90deg,transparent,#fff 45%,#d5baff 50%,transparent 58%);opacity:0;transform:rotate(-4deg);box-shadow:0 0 18px #fff;animation:slash 1s 4s forwards}
+    .wisteria-flower{position:absolute;left:50%;top:48%;width:240px;height:240px;transform:translate(-50%,-50%) scale(.2);opacity:0;border-radius:50%;background:
+      radial-gradient(ellipse at 50% 15%,transparent 0 16%,#ba89ff55 17% 23%,transparent 24%),
+      conic-gradient(from 0deg,transparent 0 8%,#a66cff66 9% 14%,transparent 15% 25%,#d9b6ff55 26% 33%,transparent 34% 100%);
+      filter:drop-shadow(0 0 20px #a36dff);animation:flower 2.5s 4.05s forwards}
+    .intro-butterfly{position:absolute;left:50%;top:50%;width:130px;height:90px;transform:translate(-50%,-50%) scale(.2);opacity:0;animation:introButterfly 1.7s 6s forwards}
+    .intro-butterfly:before,.intro-butterfly:after{content:"";position:absolute;top:7px;width:62px;height:74px;border:2px solid #d8b9ff;border-radius:80% 20% 70% 30%;background:radial-gradient(circle at 35% 35%,#dffcffaa,transparent 22%),linear-gradient(145deg,#8a48cdaa,#ffc5e577);box-shadow:0 0 28px #9c66ff}
+    .intro-butterfly:before{right:50%;transform:rotate(-18deg);transform-origin:right center}.intro-butterfly:after{left:50%;transform:scaleX(-1) rotate(-18deg);transform-origin:left center}
+    .skip{position:absolute;right:24px;bottom:22px;border:0;border-bottom:1px solid #bda2dd;background:none;padding:8px 4px;color:#d5c9e7;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;z-index:5}
+
+    /* BACKGROUND */
+    .scene-bg{position:fixed;inset:0;z-index:-3;background:
+      linear-gradient(180deg,rgba(4,7,18,.25),rgba(4,4,13,.92)),
+      radial-gradient(circle at 65% 33%,rgba(130,81,209,.24),transparent 28%),
+      url('assets/domaine-des-papillons.jpg') center/cover no-repeat;
+    }
+    .scene-bg:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx) var(--my),rgba(182,128,255,.13),transparent 25%),linear-gradient(90deg,rgba(5,5,16,.83),transparent 54%,rgba(5,5,16,.38));pointer-events:none}
+    .grain{position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E")}
+
+    /* HERO */
+    .hero{min-height:100vh;position:relative;display:flex;align-items:center;padding:8vh 8vw 11vh;isolation:isolate}
+    .hero:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 58%,#080815 100%);z-index:-1}
+    .wisteria-top{position:absolute;left:0;right:0;top:0;height:34vh;pointer-events:none;opacity:.75;background:
+      radial-gradient(ellipse at 7% 0,#aa76ff66 0 3%,transparent 4%),
+      radial-gradient(ellipse at 16% 0,#dfb8ff55 0 4%,transparent 5%),
+      radial-gradient(ellipse at 88% 0,#a96dfd55 0 4%,transparent 5%),
+      linear-gradient(180deg,#140f2c77,transparent)}
+    .hero-copy{position:relative;z-index:4;width:min(650px,52vw);padding-top:7vh}
+    .eyebrow{display:flex;align-items:center;gap:12px;color:#cbb8e5;text-transform:uppercase;letter-spacing:.35em;font-size:.68rem}.eyebrow:before{content:"";width:45px;height:1px;background:linear-gradient(90deg,transparent,#c8a1ff)}
+    h1{margin:.18em 0 0;font:600 clamp(4.2rem,9.4vw,9rem)/.78 "Cormorant Garamond",serif;letter-spacing:-.055em;text-shadow:0 0 45px #7e4db344}
+    .hashira{margin:22px 0 10px;font:500 clamp(1.25rem,2vw,2rem) "Cormorant Garamond",serif;color:#ddbfff;letter-spacing:.18em;text-transform:uppercase}
+    .quote{max-width:560px;color:#e6ddec;font:italic 1.15rem/1.8 "Cormorant Garamond",serif;border-left:1px solid #a878e1;padding-left:18px}
+    .cta{margin-top:28px;position:relative;display:inline-flex;align-items:center;gap:16px;padding:16px 26px;border:1px solid #b98cf288;background:rgba(11,8,25,.55);backdrop-filter:blur(10px);overflow:hidden;letter-spacing:.14em;font-size:.73rem;text-transform:uppercase;transition:.35s}
+    .cta:before,.cta:after{content:"";position:absolute;top:50%;width:28px;height:44px;border:1px solid #c7a5ff;opacity:0;transition:.35s}.cta:before{left:-32px;border-radius:80% 20% 70% 30%}.cta:after{right:-32px;border-radius:20% 80% 30% 70%}
+    .cta:hover{box-shadow:0 0 35px #8d58d655;border-color:#e0c7ff;transform:translateY(-2px)}.cta:hover:before{left:-15px;opacity:.65}.cta:hover:after{right:-15px;opacity:.65}
+    .cta .poison-line{position:absolute;left:-20%;top:0;width:15%;height:100%;background:linear-gradient(90deg,transparent,#c8faff66,transparent);transform:skewX(-20deg);transition:.7s}.cta:hover .poison-line{left:120%}
+
+    .character-wrap{position:absolute;right:3vw;bottom:0;width:min(52vw,760px);height:94vh;z-index:2;pointer-events:none}
+    .wing-halo{position:absolute;left:48%;top:44%;width:510px;height:510px;transform:translate(-50%,-50%);filter:blur(.2px);opacity:.55}
+    .wing-halo:before,.wing-halo:after{content:"";position:absolute;top:70px;width:220px;height:350px;border:1px solid #c5a0ff77;background:radial-gradient(circle at 45% 35%,#c8fbff26,transparent 30%),linear-gradient(145deg,#ac6dff22,#ffc8e82a);box-shadow:inset 0 0 40px #a46ef52c,0 0 45px #8053c333}
+    .wing-halo:before{right:50%;border-radius:90% 10% 75% 25%;transform:rotate(-19deg)}.wing-halo:after{left:50%;border-radius:10% 90% 25% 75%;transform:rotate(19deg)}
+    .character{position:absolute;inset:auto 0 0 0;width:100%;height:92%;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 24px 30px #000) drop-shadow(0 0 45px #7c4bb73b);animation:float 5s ease-in-out infinite alternate}
+    .character-fallback{position:absolute;left:50%;bottom:3%;width:45%;height:78%;transform:translateX(-50%);border-radius:48% 48% 24% 24%;background:linear-gradient(180deg,#15162c 0 18%,#f1ecf4 19% 68%,#1b1727 69%);opacity:.25;filter:blur(10px)}
+
+    /* WING MENU */
+    .wing-menu{position:fixed;right:28px;top:28px;z-index:300;width:320px;height:280px;pointer-events:none}
+    .menu-toggle{position:absolute;right:0;top:0;width:58px;height:58px;border:1px solid #c5a5f1aa;border-radius:50%;background:rgba(11,9,27,.72);backdrop-filter:blur(10px);pointer-events:auto;display:grid;place-items:center;transition:.3s;box-shadow:0 0 24px #925ed32b}
+    .menu-butterfly{width:28px;height:21px;position:relative}.menu-butterfly:before,.menu-butterfly:after{content:"";position:absolute;top:0;width:14px;height:20px;border:1px solid #d8bcff;background:#a368d433}.menu-butterfly:before{right:50%;border-radius:90% 10% 70% 30%;transform:rotate(-16deg)}.menu-butterfly:after{left:50%;border-radius:10% 90% 30% 70%;transform:rotate(16deg)}
+    .wing-panel{position:absolute;right:28px;top:35px;width:285px;height:220px;opacity:0;transform:scale(.25);transform-origin:100% 0;transition:.55s cubic-bezier(.2,.85,.2,1);pointer-events:none}
+    .wing-menu.open .wing-panel{opacity:1;transform:scale(1);pointer-events:auto}
+    .wing-panel:before,.wing-panel:after{content:"";position:absolute;top:0;width:50%;height:100%;border:1px solid #c8a7f366;background:linear-gradient(145deg,rgba(118,73,173,.7),rgba(15,12,32,.88));backdrop-filter:blur(16px);box-shadow:inset 0 0 40px #c79dff19,0 0 35px #7144a636}.wing-panel:before{right:50%;border-radius:95% 8% 75% 20%;transform:rotate(-8deg)}.wing-panel:after{left:50%;border-radius:8% 95% 20% 75%;transform:rotate(8deg)}
+    .wing-links{position:absolute;inset:24px 35px;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;align-content:center;text-align:center}.wing-links a{text-decoration:none;font:600 .65rem/1.2 Montserrat,sans-serif;letter-spacing:.12em;text-transform:uppercase;padding:8px 3px;color:#e9dff4;transition:.25s}.wing-links a:hover{color:#fff;text-shadow:0 0 12px #d6b8ff}
+
+    /* ID CARDS */
+    .identity{position:absolute;left:8vw;right:8vw;bottom:28px;z-index:5;display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+    .id-card{padding:11px 14px;background:rgba(12,10,29,.42);border:1px solid #c09bed2b;backdrop-filter:blur(12px)}.id-card span{display:block;color:#ad9cbd;font-size:.57rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:5px}.id-card strong{font:500 .84rem "Cormorant Garamond",serif;letter-spacing:.04em}
+    .scroll-cue{position:absolute;left:50%;bottom:102px;transform:translateX(-50%);z-index:5;color:#d9cdea;font-size:.61rem;letter-spacing:.24em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:10px}.scroll-cue i{width:1px;height:42px;background:linear-gradient(#cab0ec,transparent);animation:scrollLine 1.7s infinite}
+
+    /* CONTENT */
+    main{position:relative;background:linear-gradient(180deg,#080815 0,#0a0915 35%,#090713 100%)}
+    section{position:relative;padding:120px 8vw;overflow:hidden}
+    .section-tag{color:#bca5d8;font-size:.62rem;letter-spacing:.3em;text-transform:uppercase}.section-title{margin:10px 0 28px;font:600 clamp(2.8rem,6vw,6rem)/.95 "Cormorant Garamond",serif}.lead{max-width:780px;color:#d2c9da;font:1.15rem/1.85 "Cormorant Garamond",serif}
+    .reveal{opacity:0;transform:translateY(36px);transition:1s}.reveal.visible{opacity:1;transform:none}
+    .portrait-block{min-height:78vh;display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:7vw}
+    .portrait-card{position:relative;height:620px;border:1px solid #b48ee23d;background:linear-gradient(145deg,#20153b88,#0a0917);overflow:hidden}.portrait-card img{width:100%;height:100%;object-fit:cover;filter:saturate(.72) contrast(1.08)}.portrait-card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,#0a0818 100%),linear-gradient(90deg,#7d4eb02c,transparent)}
+    .portrait-card .fallback-text{position:absolute;inset:0;display:grid;place-items:center;color:#bba9ca;font:italic 1rem "Cormorant Garamond",serif;text-align:center;padding:30px}
+
+    .facets{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding-top:30px}.facet{position:relative;min-height:420px;padding:36px 30px;border:1px solid #b58cdb35;background:linear-gradient(165deg,rgba(33,21,55,.68),rgba(8,8,20,.9));overflow:hidden;transition:.45s}.facet:before{content:"";position:absolute;inset:0;opacity:0;transition:.45s}.facet:nth-child(1):before{background:radial-gradient(circle at 50% 35%,#b67cff2f,transparent 40%)}.facet:nth-child(2):before{background:repeating-radial-gradient(circle at 50% 110%,#7545cf22 0 5%,transparent 6% 12%)}.facet:nth-child(3):before{background:linear-gradient(140deg,transparent 44%,#8f274228 45% 46%,transparent 47%)}.facet:hover{transform:translateY(-8px);border-color:#c9a8f577;box-shadow:0 22px 50px #0007}.facet:hover:before{opacity:1}.facet>*{position:relative;z-index:2}.facet-number{font:500 4rem "Cormorant Garamond",serif;color:#a476db55}.facet h3{font:600 2rem "Cormorant Garamond",serif;margin:8px 0 16px}.facet p{color:#c9c0cf;line-height:1.85;font-size:.88rem}
+
+    .vial-section{min-height:80vh;display:grid;place-items:center;text-align:center}.vial{position:relative;width:115px;height:260px;border:2px solid #d2bded99;border-radius:16px 16px 42px 42px;background:linear-gradient(90deg,#fff1,transparent 25% 70%,#fff1);box-shadow:0 0 50px #7f48c34a,inset 0 0 28px #bd88ff26;transition:.35s}.vial:hover{transform:translateY(-8px) rotate(1deg);box-shadow:0 0 70px #9d63ef77}.vial:before{content:"";position:absolute;left:19px;right:19px;top:-42px;height:52px;border:2px solid #d2bded99;border-bottom:0;border-radius:8px 8px 0 0;background:#1c142d}.vial-liquid{position:absolute;left:8px;right:8px;bottom:8px;height:62%;border-radius:8px 8px 33px 33px;background:linear-gradient(180deg,#c6f8ff88,#8c4de7 30%,#3f175f);box-shadow:inset 0 12px 18px #e8ffff55,0 0 30px #9d62e6;overflow:hidden}.vial-liquid:before{content:"";position:absolute;left:-35%;top:0;width:170%;height:22px;border-radius:50%;background:#d8faff99;animation:liquid 3s ease-in-out infinite}.vial-label{margin-top:78px;color:#bcaad1;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase}.random-quote{margin:34px auto 0;min-height:80px;max-width:760px;font:italic clamp(1.4rem,2.8vw,2.25rem)/1.45 "Cormorant Garamond",serif;color:#eadff4;opacity:.4;transition:.6s}.random-quote.show{opacity:1;text-shadow:0 0 30px #9f69d944}
+
+    .ending{min-height:90vh;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(180deg,#090713cc,#05050dcc),url('assets/domaine-des-papillons.jpg') center/cover no-repeat}.ending .inner{max-width:850px}.ending blockquote{font:italic clamp(2rem,4vw,4rem)/1.2 "Cormorant Garamond",serif;margin:0 0 35px}.door-btn{padding:16px 28px;border:1px solid #c3a1ed77;background:#0c091b99;letter-spacing:.18em;text-transform:uppercase;font-size:.7rem}
+
+    /* CURSOR */
+    #cursor{position:fixed;left:0;top:0;width:32px;height:32px;z-index:12000;pointer-events:none;transform:translate(-50%,-50%);mix-blend-mode:screen}
+    .needle{position:absolute;left:15px;top:0;width:2px;height:31px;background:linear-gradient(#fff,#b984ff 45%,transparent);box-shadow:0 0 8px #bd8cff;transform:rotate(42deg);transform-origin:center 70%;transition:.15s}
+    .cursor-butterfly{position:absolute;left:-14px;top:-8px;width:16px;height:12px;transition:.2s}.cursor-butterfly:before,.cursor-butterfly:after{content:"";position:absolute;top:2px;width:8px;height:10px;border:1px solid #bff8ff;border-radius:80% 20% 70% 30%;background:#9b6cff55}.cursor-butterfly:before{right:50%;transform:rotate(-15deg)}.cursor-butterfly:after{left:50%;transform:scaleX(-1) rotate(-15deg)}
+    #cursor.hover .needle{height:24px;filter:brightness(1.5)}#cursor.hover .cursor-butterfly:before{transform:rotate(-32deg)}#cursor.hover .cursor-butterfly:after{transform:scaleX(-1) rotate(-32deg)}
+    #cursor:after{content:"";position:absolute;inset:1px;border:1px solid #c692ff;border-radius:50%;opacity:0;transform:scale(.3);transition:.2s}#cursor.hover:after{opacity:.75;transform:scale(1.15)}
+    .particle{position:fixed;z-index:11990;width:4px;height:4px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,#fff,#9b6cff 45%,transparent 70%);animation:particle .75s forwards}
+    .click-fx{position:fixed;z-index:11980;width:10px;height:10px;pointer-events:none;transform:translate(-50%,-50%)}.click-fx .ring{position:absolute;inset:0;border:1px solid #d6b3ff;border-radius:50%;animation:ring .65s ease-out forwards}.click-fx .stab{position:absolute;left:-38px;top:4px;width:86px;height:2px;background:linear-gradient(90deg,transparent,#fff,#a866ff,transparent);box-shadow:0 0 12px #fff;animation:stab .45s forwards}.click-fx .poison{position:absolute;inset:-20px;background:repeating-conic-gradient(transparent 0 18deg,#9e62ff88 19deg 20deg,transparent 21deg 43deg);mask:radial-gradient(circle,transparent 0 16%,#000 17% 30%,transparent 48%);animation:poisonSpread .7s forwards}
+
+    /* TRANSITION */
+    #page-transition{position:fixed;inset:0;z-index:11000;pointer-events:none;opacity:0}.transition-wing{position:absolute;top:50%;width:52vw;height:120vh;background:radial-gradient(circle at center,#b78df0 0,#4b286f 36%,#0a0714 74%);border:1px solid #d8c2f5;box-shadow:0 0 80px #9b69d9}.transition-wing.left{right:50%;border-radius:100% 8% 70% 20%;transform:translateY(-50%) scaleX(0);transform-origin:right}.transition-wing.right{left:50%;border-radius:8% 100% 20% 70%;transform:translateY(-50%) scaleX(0);transform-origin:left}.transition-active{opacity:1}.transition-active .left{animation:wingLeft 1.2s forwards}.transition-active .right{animation:wingRight 1.2s forwards}
+
+    /* MUSIC */
+    .music{position:fixed;left:22px;bottom:22px;z-index:250;display:flex;align-items:center;gap:10px}.music button{width:42px;height:42px;border-radius:50%;border:1px solid #b797df66;background:#0b0919bb;backdrop-filter:blur(10px)}.music span{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:#bfb0d0}
+
+    @keyframes drop{to{top:50%;transform:translateY(-50%)}}
+    @keyframes wave{to{transform:translate(-50%,-50%) scale(90);opacity:0}}
+    @keyframes veinsIn{20%,75%{opacity:1}100%{opacity:0}}
+    @keyframes quote1{0%{opacity:0;transform:translate(-50%,12px)}30%,75%{opacity:1;transform:translate(-50%,0)}100%{opacity:0}}
+    @keyframes slash{0%{opacity:0;transform:translateX(-20%) rotate(-4deg)}20%{opacity:1}100%{opacity:0;transform:translateX(22%) rotate(-4deg)}}
+    @keyframes flower{0%{opacity:0;transform:translate(-50%,-50%) scale(.2) rotate(-20deg)}30%,75%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.35)}}
+    @keyframes quote2{0%{opacity:0;transform:translate(-50%,12px)}25%,70%{opacity:1;transform:translate(-50%,0)}100%{opacity:0}}
+    @keyframes introButterfly{0%{opacity:0;transform:translate(-50%,-50%) scale(.15)}35%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:1;transform:translate(-50%,-50%) scale(12)}}
+    @keyframes breathe{50%{transform:scale(1.08)}}@keyframes float{to{transform:translateY(-8px)}}
+    @keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+    @keyframes liquid{50%{transform:translateX(18%) rotate(2deg)}}
+    @keyframes particle{to{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0}}
+    @keyframes ring{to{transform:scale(var(--scale,7));opacity:0}}@keyframes stab{0%{transform:scaleX(0)}45%{transform:scaleX(1)}100%{transform:scaleX(.2);opacity:0}}@keyframes poisonSpread{to{transform:scale(var(--power,2));opacity:0}}
+    @keyframes wingLeft{0%{transform:translateY(-50%) scaleX(0)}43%,68%{transform:translateY(-50%) scaleX(1)}100%{transform:translateY(-50%) scaleX(0)}}@keyframes wingRight{0%{transform:translateY(-50%) scaleX(0)}43%,68%{transform:translateY(-50%) scaleX(1)}100%{transform:translateY(-50%) scaleX(0)}}
+
+    @media(max-width:950px){body{cursor:auto}.hero{padding:110px 7vw 165px;align-items:flex-start}.hero-copy{width:100%;padding-top:8vh}.character-wrap{right:-18vw;width:95vw;opacity:.45}.identity{grid-template-columns:repeat(2,1fr)}.id-card:last-child{display:none}.scroll-cue{display:none}.portrait-block{grid-template-columns:1fr}.portrait-card{height:480px}.facets{grid-template-columns:1fr}.wing-menu{right:12px;top:12px}.music{left:12px;bottom:12px}#cursor{display:none}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+  
+    /* Images fournies + optimisation multi-écrans */
+    .character{object-fit:cover;object-position:58% center;height:88%;width:100%;border-radius:42% 8% 0 0;mask-image:linear-gradient(to bottom,#000 0 76%,transparent 100%)}
+    .portrait-card img{width:100%;height:100%;object-fit:cover;object-position:center 18%;display:block}
+    .ending{background-position:center}
+    #ytMusic{position:fixed;width:1px;height:1px;left:-9999px;top:-9999px;opacity:0;pointer-events:none}
+    .music button.playing{box-shadow:0 0 25px #a96cff88;border-color:#e1caff;animation:musicPulse 1.8s ease-in-out infinite}
+    @keyframes musicPulse{50%{transform:scale(1.08)}}
+    @media (max-width:950px){
+      body{cursor:auto}.hero{min-height:100svh;padding:95px 20px 150px;align-items:flex-end}.hero-copy{width:100%;padding:0;z-index:5}.hero-copy h1{font-size:clamp(3.4rem,18vw,6rem)}
+      .character-wrap{position:absolute;inset:0;width:100%;height:100%;right:auto;opacity:.62}.character{height:100%;object-position:60% center;border-radius:0;mask-image:linear-gradient(to bottom,#000 0 55%,transparent 88%)}
+      .wing-halo{display:none}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,15,.1),rgba(5,5,15,.25) 45%,rgba(5,5,15,.96) 84%);z-index:1;pointer-events:none}
+      .identity{left:12px;right:12px;bottom:18px;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.id-card{padding:9px 10px}.id-card:nth-child(n+5){display:none}
+      .wing-menu{right:8px;top:8px;width:280px}.wing-panel{width:260px}.music{left:10px;bottom:10px}.music span{display:none}
+      section{padding-left:20px;padding-right:20px}.portrait-block{grid-template-columns:1fr;gap:30px}.portrait-card{height:min(65svh,520px)}.facets{grid-template-columns:1fr}.ending{min-height:75svh}
+    }
+    @media (max-width:520px){
+      .hero{padding-bottom:135px}.eyebrow{font-size:.52rem;letter-spacing:.18em}.hashira{font-size:1rem}.quote{font-size:1rem;line-height:1.55}.cta{padding:14px 17px;font-size:.62rem}
+      .identity{grid-template-columns:1fr 1fr}.id-card span{font-size:.48rem}.id-card strong{font-size:.68rem}.section-title{font-size:clamp(2.6rem,13vw,4rem)}
+      .wing-panel{right:10px;top:58px;height:auto}.wing-panel:before,.wing-panel:after{display:none}.wing-links{position:relative!important;display:flex!important;flex-direction:column;gap:6px;background:rgba(9,7,22,.96);padding:14px;border:1px solid #b98cf266;border-radius:14px}.wing-links a{position:static!important;transform:none!important;width:100%;text-align:left;padding:10px}
+    }
+</style>
+</head>
+<body>
+  <div id="intro" aria-label="Introduction cinématique">
+    <div class="intro-vignette"></div><div class="drop"></div><div class="liquid-wave"></div><div class="veins"></div>
+    <p class="intro-title">« Quelle belle nuit, n’est-ce pas ? »</p><div class="slash"></div><div class="wisteria-flower"></div>
+    <p class="intro-second">« Dommage que vous ne puissiez pas en profiter plus longtemps. »</p><div class="intro-butterfly"></div>
+    <button class="skip" id="skipIntro">Passer l’introduction</button>
+  </div>
+
+  <div class="scene-bg"></div><div class="grain"></div>
+  <div id="cursor"><div class="needle"></div><div class="cursor-butterfly"></div></div>
+  <div id="page-transition"><div class="transition-wing left"></div><div class="transition-wing right"></div></div>
+
+  <nav class="wing-menu" id="wingMenu">
+    <button class="menu-toggle interactive" id="menuToggle" aria-label="Ouvrir le menu"><span class="menu-butterfly"></span></button>
+    <div class="wing-panel"><div class="wing-links">
+      <a href="#accueil" class="interactive">Accueil</a><a href="#presentation" class="interactive">Histoire</a>
+      <a href="#facettes" class="interactive">Personnalité</a><a href="#facettes" class="interactive">Combat</a>
+      <a href="#poison" class="interactive">Souffle</a><a href="#fin" class="interactive">Domaine</a>
+    </div></div>
+  </nav>
+
+  <div class="music"><button id="musicBtn" class="interactive" aria-label="Musique">♪</button><span id="musicLabel">Musique</span></div>
+  <iframe id="ytMusic" title="Musique de fond" allow="autoplay" src="https://www.youtube.com/embed/sul07TrWlUc?enablejsapi=1&autoplay=1&loop=1&playlist=sul07TrWlUc&controls=0&mute=1"></iframe>
+
+  <header class="hero" id="accueil">
+    <div class="wisteria-top"></div>
+    <div class="hero-copy reveal visible">
+      <div class="eyebrow">Demon Slayer — Kimetsu no Yaiba</div>
+      <h1>SHINOBU<br>KOCHO</h1>
+      <div class="hashira">Pilier de l’Insecte</div>
+      <p class="quote">« Aussi belle et délicate qu’un papillon… aussi mortelle que son poison. »</p>
+      <button class="cta interactive transition-link" data-target="#presentation"><span class="poison-line"></span>Découvrir Shinobu <span>✦</span></button>
+    </div>
+    <div class="character-wrap"><div class="wing-halo"></div><div class="character-fallback"></div><img class="character" src="assets/shinobu.jpg" alt="Shinobu Kocho" onerror="this.style.display='none'"></div>
+    <div class="scroll-cue">Faire défiler pour entrer dans le Domaine<i></i></div>
+    <div class="identity">
+      <div class="id-card"><span>Nom</span><strong>Shinobu Kocho</strong></div><div class="id-card"><span>Titre</span><strong>Pilier de l’Insecte</strong></div>
+      <div class="id-card"><span>Organisation</span><strong>Corps des Pourfendeurs</strong></div><div class="id-card"><span>Style de combat</span><strong>Souffle de l’Insecte</strong></div>
+      <div class="id-card"><span>Résidence</span><strong>Domaine des Papillons</strong></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="portrait-block" id="presentation">
+      <div class="reveal"><div class="section-tag">I — Derrière le sourire</div><h2 class="section-title">Celle qui sourit<br>pour cacher sa colère</h2>
+      <p class="lead">D’une voix douce et d’un sourire presque immuable, Shinobu donne l’image d’une présence rassurante. Pourtant, derrière cette sérénité se cache une colère profonde, façonnée par les pertes, la douleur et une volonté inflexible de vaincre les démons.</p></div>
+      <div class="portrait-card reveal"><div class="fallback-text">Ajoute l’image <strong>assets/kanae-kocho.jpg</strong><br>pour révéler le portrait animé.</div><img src="assets/kanae-kocho.jpg" alt="Portrait de Shinobu" onerror="this.style.display='none'"></div>
+    </section>
+
+    <section id="facettes">
+      <div class="reveal"><div class="section-tag">II — Les trois facettes</div><h2 class="section-title">Beauté. Poison. Colère.</h2></div>
+      <div class="facets">
+        <article class="facet reveal interactive"><div class="facet-number">01</div><h3>Le Papillon</h3><p>Une silhouette légère, une voix calme et une élégance qui rappelle les ailes délicates d’un papillon. Sa douceur apparente désarme avant même que le danger ne soit compris.</p></article>
+        <article class="facet reveal interactive"><div class="facet-number">02</div><h3>Le Poison</h3><p>Incapable de trancher le cou d’un démon par la seule force, elle a transformé sa science médicale en arme. Sa lame injecte des poisons de glycine conçus pour détruire ses ennemis de l’intérieur.</p></article>
+        <article class="facet reveal interactive"><div class="facet-number">03</div><h3>La Colère</h3><p>Son sourire est aussi un héritage. Sous cette expression paisible subsiste une haine intense des démons et la mémoire de Kanae, qu’elle porte à chacun de ses pas.</p></article>
+      </div>
+    </section>
+
+    <section class="vial-section" id="poison">
+      <div class="reveal"><div class="section-tag">III — Le laboratoire</div><h2 class="section-title">Une douceur mortelle</h2><p class="lead" style="margin-inline:auto">Clique sur la fiole. Chaque brume révèle une pensée différente.</p>
+      <button class="vial interactive" id="vial" aria-label="Ouvrir la fiole"><span class="vial-liquid"></span></button><div class="vial-label">Fiole expérimentale — Glycine</div>
+      <blockquote class="random-quote" id="randomQuote">Le poison attend en silence.</blockquote></div>
+    </section>
+
+    <section class="ending" id="fin"><div class="inner reveal"><div class="section-tag">IV — Entrée principale</div><blockquote>« Derrière chaque sourire se cache une histoire que personne ne peut voir. »</blockquote><button class="door-btn interactive" id="enterDomain">Entrer dans le Domaine</button></div></section>
+  </main>
+
+  <script>
+    const intro=document.getElementById('intro');
+    const closeIntro=()=>{intro.classList.add('hidden');sessionStorage.setItem('shinobuIntro','seen')};
+    document.getElementById('skipIntro').onclick=closeIntro;
+    if(sessionStorage.getItem('shinobuIntro')==='seen') intro.classList.add('hidden'); else setTimeout(closeIntro,7700);
+
+    const cursor=document.getElementById('cursor'); let x=innerWidth/2,y=innerHeight/2,bx=x,by=y,last=0,clickPower=1,clickTimer;
+    addEventListener('mousemove',e=>{x=e.clientX;y=e.clientY;cursor.style.left=x+'px';cursor.style.top=y+'px';document.documentElement.style.setProperty('--mx',x+'px');document.documentElement.style.setProperty('--my',y+'px');
+      const speed=Math.hypot(e.movementX,e.movementY); if(speed>10 && performance.now()-last>28){particle(x,y,speed);last=performance.now()}});
+    function particle(px,py,s=15){const p=document.createElement('i');p.className='particle';p.style.left=px+'px';p.style.top=py+'px';p.style.setProperty('--dx',(-eRand(10,45))+'px');p.style.setProperty('--dy',(eRand(-25,25))+'px');p.style.width=p.style.height=Math.min(6,2+s/12)+'px';document.body.appendChild(p);setTimeout(()=>p.remove(),800)}
+    const eRand=(a,b)=>Math.random()*(b-a)+a;
+    document.querySelectorAll('.interactive,a,button').forEach(el=>{el.addEventListener('mouseenter',()=>cursor.classList.add('hover'));el.addEventListener('mouseleave',()=>cursor.classList.remove('hover'))});
+    addEventListener('click',e=>{if(e.target.closest('#skipIntro'))return; clickPower=Math.min(4,clickPower+.28);clearTimeout(clickTimer);clickTimer=setTimeout(()=>clickPower=1,2000);const fx=document.createElement('div');fx.className='click-fx';fx.style.left=e.clientX+'px';fx.style.top=e.clientY+'px';fx.innerHTML='<i class="ring"></i><i class="stab"></i><i class="poison"></i>';fx.querySelector('.ring').style.setProperty('--scale',6+clickPower);fx.querySelector('.poison').style.setProperty('--power',1.5+clickPower*.45);document.body.appendChild(fx);for(let i=0;i<6+Math.floor(clickPower);i++)particle(e.clientX,e.clientY,22);setTimeout(()=>fx.remove(),850)});
+
+    const menu=document.getElementById('wingMenu');document.getElementById('menuToggle').onclick=()=>menu.classList.toggle('open');
+    document.querySelectorAll('.wing-links a').forEach(a=>a.onclick=()=>menu.classList.remove('open'));
+
+    const io=new IntersectionObserver(entries=>entries.forEach(e=>e.isIntersecting&&e.target.classList.add('visible')),{threshold:.16});document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    const quotes=[
+      '« Les humains et les démons devraient pouvoir s’entendre. »',
+      '« La colère que je ressens ne disparaîtra jamais. »',
+      '« Même une petite créature peut transporter un poison mortel. »',
+      '« Le sourire est parfois la plus élégante des armures. »',
+      '« Cette nuit est vraiment magnifique. »'
+    ];
+    const nightQuotes=['« La nuit rend les papillons plus silencieux… et le poison plus difficile à voir. »','« Certaines présences ne se révèlent qu’après le coucher du soleil. »'];
+    document.getElementById('vial').onclick=()=>{const h=new Date().getHours();const pool=(h>=20||h<6)?quotes.concat(nightQuotes):quotes;const q=document.getElementById('randomQuote');q.classList.remove('show');setTimeout(()=>{q.textContent=pool[Math.floor(Math.random()*pool.length)];q.classList.add('show')},250);for(let i=0;i<24;i++)particle(innerWidth/2,document.getElementById('vial').getBoundingClientRect().top+130,25)};
+
+    function transitionTo(target){const t=document.getElementById('page-transition');t.classList.add('transition-active');setTimeout(()=>document.querySelector(target)?.scrollIntoView({behavior:'instant'}),520);setTimeout(()=>t.classList.remove('transition-active'),1250)}
+    document.querySelectorAll('.transition-link').forEach(b=>b.onclick=()=>transitionTo(b.dataset.target));
+    document.getElementById('enterDomain').onclick=()=>{const t=document.getElementById('page-transition');t.classList.add('transition-active');setTimeout(()=>location.href='domaine.html',620)};
+
+    const musicFrame=document.getElementById('ytMusic'),musicBtn=document.getElementById('musicBtn'),musicLabel=document.getElementById('musicLabel');
+    let musicOn=localStorage.getItem('shinobuMusic')!=='off';
+    const yt=(func,args=[])=>musicFrame.contentWindow?.postMessage(JSON.stringify({event:'command',func,args}),'*');
+    function applyMusic(userGesture=false){
+      if(musicOn){yt('playVideo'); if(userGesture)yt('unMute'); yt('setVolume',[38]); musicBtn.classList.add('playing');musicBtn.textContent='♫';musicLabel.textContent='Musique active'}
+      else{yt('pauseVideo');musicBtn.classList.remove('playing');musicBtn.textContent='♪';musicLabel.textContent='Musique coupée'}
+      localStorage.setItem('shinobuMusic',musicOn?'on':'off');
+    }
+    musicFrame.addEventListener('load',()=>setTimeout(()=>applyMusic(false),450));
+    const unlockMusic=()=>{if(musicOn)applyMusic(true);removeEventListener('pointerdown',unlockMusic,true);removeEventListener('keydown',unlockMusic,true)};
+    addEventListener('pointerdown',unlockMusic,true);addEventListener('keydown',unlockMusic,true);
+    musicBtn.onclick=e=>{e.stopPropagation();musicOn=!musicOn;applyMusic(true)};
+
+    // Easter egg : cinq clics rapides sur le papillon du menu.
+    let secret=0,secretT;document.getElementById('menuToggle').addEventListener('click',()=>{secret++;clearTimeout(secretT);secretT=setTimeout(()=>secret=0,1400);if(secret>=5){secret=0;document.body.animate([{filter:'hue-rotate(0deg)'},{filter:'hue-rotate(55deg)'},{filter:'hue-rotate(0deg)'}],{duration:1800});for(let i=0;i<70;i++)setTimeout(()=>particle(eRand(0,innerWidth),eRand(0,innerHeight),30),i*12)}});
+  </script>
+</body>
+</html>
